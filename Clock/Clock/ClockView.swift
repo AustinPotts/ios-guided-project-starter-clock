@@ -39,6 +39,7 @@ class ClockView: UIView {
         }
     }
     
+    //You can alter these to see the changes that are possible
     private var seconds = Hand(width: 1.0, length: 2.4, color: .red, value: 0)
     private var minutes = Hand(width: 3.0, length: 3.2, color: .white, value: 0)
     private var hours = Hand(width: 4.0, length: 4.6, color: .white, value: 0)
@@ -75,11 +76,14 @@ class ClockView: UIView {
     
     // MARK: - View Lifecycle
     
+    //Gets used when creating this view programtically
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
     }
     
+    //Gets used when creating this view from the storyboard
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clear
@@ -89,11 +93,36 @@ class ClockView: UIView {
         /// Note: elements are drawn on the the screen from back to front
         /// in the order they appear below.
         
+        
+        //The context is the canvas that we draw on
         if let context = UIGraphicsGetCurrentContext() {
             
             // clock face
             
+            
+            //CG Rect with x y axis to change the shape of rect
+            //An elipse is an oval or circle
+            context.addEllipse(in: rect)
+            context.setFillColor(clockBgColor.cgColor)
+            
+           
+            //This is the method that actually draws on the screen
+            context.fillPath()
+            
+            
+            
             // clock's border
+            
+            let insetCirlceRect = CGRect(x: rect.origin.x + borderWidth / 2, y: rect.origin.y + borderWidth / 2, width: rect.size.width, height: rect.size.height)
+            
+            context.addEllipse(in: insetCirlceRect)
+            context.setStrokeColor(borderColor.cgColor)
+            context.setLineWidth(borderWidth)
+            
+            //This draws the border on the screen
+            context.strokePath()
+            
+            
             
             // numerals
 //            let clockCenter = CGPoint(x: rect.size.width / 2.0,
