@@ -208,14 +208,26 @@ class ClockView: UIView {
     
     @objc func timerFired(_ sender: CADisplayLink) {
         // Get current time
+        let currentTime = Date()
         
         // Get calendar and set timezone
+        let calendar = Calendar(identifier: .gregorian)
         
         // Extract hour, minute, second components from current time
         
+        let timeComponents = calendar.dateComponents([.hour, .minute, .second], from: currentTime)
+        
         // Set above components to hours, minutes, seconds properties
         
+        
+        //These are the values the draw method is looking for
+        hours.value = timeComponents.hour ?? 0
+        minutes.value = timeComponents.minute ?? 0
+        seconds.value = timeComponents.second ?? 0
+        
         // Trigger a screen refresh
+        
+        setNeedsDisplay()
         
     }
     
