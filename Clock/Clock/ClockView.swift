@@ -211,7 +211,8 @@ class ClockView: UIView {
         let currentTime = Date()
         
         // Get calendar and set timezone
-        let calendar = Calendar(identifier: .gregorian)
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timezone!
         
         // Extract hour, minute, second components from current time
         
